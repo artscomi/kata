@@ -8,6 +8,16 @@ export default function CountryCapitalGame() {
     Azerbaijan: "Baku",
     Poland: "Warszawa",
     "Papua New Guinea": "Port Moresby",
+    Italia: "Roma",
+    "United States": "Washington D.C.",
+    "United Kingdom": "London",
+    "South Korea": "Seoul",
+    Japan: "Tokyo",
+    Turkey: "Ankara",
+    "New Zealand": "Wellington",
+    Australia: "Canberra",
+    Canada: "Ottawa",
+    Russia: "Moscow",
   };
 
   const [clickedButton, setClickedButton] = useState("");
@@ -55,6 +65,7 @@ export default function CountryCapitalGame() {
   return (
     <div>
       <p>Your game component</p>
+      {shuffledData.length === 0 && <p>You win!</p>}
       {shuffledData.map((el) => (
         <button
           style={{
