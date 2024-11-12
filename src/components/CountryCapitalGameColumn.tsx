@@ -1,6 +1,35 @@
 import { useEffect } from "react";
 import { useState } from "react";
 
+const getButtonStyle = (
+  el: string,
+  matchedPairs: string[],
+  unmatchedPairs: string[],
+  clickedButton: string
+) => {
+  return {
+    backgroundColor: matchedPairs.includes(el)
+      ? "green"
+      : unmatchedPairs.includes(el)
+      ? "red"
+      : clickedButton === el
+      ? "#0000ff"
+      : "initial",
+    color:
+      matchedPairs.includes(el) ||
+      unmatchedPairs.includes(el) ||
+      clickedButton === el
+        ? "white"
+        : "initial",
+    border: "1px solid black",
+    borderRadius: "5px",
+    padding: "5px",
+    margin: "5px",
+    cursor: "pointer",
+    display: "block",
+  };
+};
+
 export default function CountryCapitalGameColumn() {
   const data = {
     Germany: "Berlin",
@@ -30,30 +59,6 @@ export default function CountryCapitalGameColumn() {
 
   const countries = Object.keys(data);
   const capitals = Object.values(data);
-
-  const getButtonSytle = (el: string) => {
-    return {
-      backgroundColor: matchedPairs.includes(el)
-        ? "green"
-        : unmatchedPairs.includes(el)
-        ? "red"
-        : clickedButton === el
-        ? "#0000ff"
-        : "initial",
-      color:
-        matchedPairs.includes(el) ||
-        unmatchedPairs.includes(el) ||
-        clickedButton === el
-          ? "white"
-          : "initial",
-      border: "1px solid black",
-      borderRadius: "5px",
-      padding: "5px",
-      margin: "5px",
-      cursor: "pointer",
-      display: "block",
-    };
-  };
 
   useEffect(() => {
     const shuffledCountries = countries.sort(() => Math.random() - 0.5);
@@ -131,7 +136,12 @@ export default function CountryCapitalGameColumn() {
         <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
           {shuffledCountries.map((el) => (
             <button
-              style={getButtonSytle(el)}
+              style={getButtonStyle(
+                el,
+                matchedPairs,
+                unmatchedPairs,
+                clickedButton
+              )}
               key={el}
               onClick={() => handleButtonClick(el)}
             >
@@ -142,7 +152,12 @@ export default function CountryCapitalGameColumn() {
         <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
           {shuffledCapital.map((el) => (
             <button
-              style={getButtonSytle(el)}
+              style={getButtonStyle(
+                el,
+                matchedPairs,
+                unmatchedPairs,
+                clickedButton
+              )}
               key={el}
               onClick={() => handleButtonClick(el)}
             >
