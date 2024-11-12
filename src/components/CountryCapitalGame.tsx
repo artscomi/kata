@@ -24,6 +24,8 @@ export default function CountryCapitalGame() {
   const [previousClicked, setPreviousClicked] = useState("");
   const [matchedPairs, setMatchedPairs] = useState<string[]>([]);
   const [unmatchedPairs, setUnmatchedPairs] = useState<string[]>([]);
+  const [errorCount, setErrorCount] = useState(0);
+  const [guessCount, setGuessCount] = useState(0);
 
   useEffect(() => {
     const parsedData = Object.entries(data)
@@ -42,6 +44,7 @@ export default function CountryCapitalGame() {
 
       if (isMatch) {
         setMatchedPairs([previousClicked, clickedItem]);
+        setGuessCount((prevCount) => prevCount + 1);
       } else {
         setUnmatchedPairs([previousClicked, clickedItem]);
       }
@@ -54,6 +57,14 @@ export default function CountryCapitalGame() {
     setPreviousClicked(clickedItem);
   };
 
+  console.log({ previousClicked, matchedPairs, unmatchedPairs });
+
+  useEffect(() => {
+    if (unmatchedPairs.length > 0) {
+      setErrorCount((prevCount) => prevCount + 1);
+    }
+  }, [unmatchedPairs]);
+
   useEffect(() => {
     setTimeout(() => {
       setShuffledData((prevData) =>
@@ -64,7 +75,14 @@ export default function CountryCapitalGame() {
 
   return (
     <div>
-      <p>Your game component</p>
+      <h2>Game component</h2>
+      <div
+        style={{ display: "flex", justifyContent: "center", columnGap: "20px" }}
+      >
+        <p>Errors: {errorCount}</p>
+        <p>Guesses: {guessCount}</p>
+      </div>
+
       {shuffledData.length === 0 && <p>You win!</p>}
       {shuffledData.map((el) => (
         <button
@@ -83,8 +101,10 @@ export default function CountryCapitalGame() {
                 ? "white"
                 : "initial",
             border: "1px solid black",
+            borderRadius: "5px",
             padding: "5px",
             margin: "5px",
+            cursor: "pointer",
           }}
           key={el}
           onClick={() => handleButtonClick(el)}

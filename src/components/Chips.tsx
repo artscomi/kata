@@ -17,7 +17,7 @@ const Chips = ({ chips, maxChips, maxTextLength }: ChipListProps) => {
 
   return (
     <>
-      <p>Your chip component</p>
+      <h2>Chip component</h2>
       <section
         style={{
           display: "flex",
