@@ -80,7 +80,7 @@ export default function CountryCapitalGame() {
         style={{ display: "flex", justifyContent: "center", columnGap: "20px" }}
       >
         <p>Errors: {errorCount}</p>
-        <p>Guesses: {guessCount}</p>
+        <p>Correct Answers: {guessCount}</p>
       </div>
 
       {shuffledData.length === 0 && <p>You win!</p>}

@@ -117,7 +117,7 @@ export default function CountryCapitalGameColumn() {
         style={{ display: "flex", justifyContent: "center", columnGap: "20px" }}
       >
         <p>Errors: {errorCount}</p>
-        <p>Correct: {guessCount}</p>
+        <p>Correct Answers: {guessCount}</p>
       </div>
 
       {shuffledCountries.length + shuffledCapital.length === 0 && (
