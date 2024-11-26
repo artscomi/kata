@@ -1,3 +1,4 @@
+import Button from "@mui/material/Button/Button";
 import { useEffect } from "react";
 import { useState } from "react";
 
@@ -135,7 +136,7 @@ export default function CountryCapitalGameColumn() {
       >
         <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
           {shuffledCountries.map((el) => (
-            <button
+            <Button
               style={getButtonStyle(
                 el,
                 matchedPairs,
@@ -146,12 +147,12 @@ export default function CountryCapitalGameColumn() {
               onClick={() => handleButtonClick(el)}
             >
               {el}
-            </button>
+            </Button>
           ))}
         </div>
         <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
           {shuffledCapital.map((el) => (
-            <button
+            <Button
               style={getButtonStyle(
                 el,
                 matchedPairs,
@@ -162,7 +163,7 @@ export default function CountryCapitalGameColumn() {
               onClick={() => handleButtonClick(el)}
             >
               {el}
-            </button>
+            </Button>
           ))}
         </div>
       </div>

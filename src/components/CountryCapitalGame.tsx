@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import { Button } from "@mui/material";
+import { useEffect } from "react";
 import { useState } from "react";
 
 export default function CountryCapitalGame() {
   const [shuffledData, setShuffledData] = useState<string[]>([]);
-  const data = {
+  const data: Data = {
     Germany: "Berlin",
     Azerbaijan: "Baku",
     Poland: "Warszawa",
@@ -20,12 +21,29 @@ export default function CountryCapitalGame() {
     Russia: "Moscow",
   };
 
+  type Data = { [key: string]: string };
+
   const [clickedButton, setClickedButton] = useState("");
   const [previousClicked, setPreviousClicked] = useState("");
   const [matchedPairs, setMatchedPairs] = useState<string[]>([]);
   const [unmatchedPairs, setUnmatchedPairs] = useState<string[]>([]);
   const [errorCount, setErrorCount] = useState(0);
   const [guessCount, setGuessCount] = useState(0);
+
+  console.log({ data });
+
+  // voglio che il parametro b abbia il tipo corrispondente al valore di a
+
+  /**
+   * Checks if the given capital matches the capital of the specified country.
+   *
+   * @param a - The country name as a key from the data object.
+   * @param b - The capital name to be matched.
+   * @returns True if the capital matches the country's capital, otherwise false.
+   */
+  const getMatch = (a: keyof Data, b: (typeof data)[keyof Data]): boolean => {
+    return data[a] === b;
+  };
 
   useEffect(() => {
     const parsedData = Object.entries(data)
@@ -39,8 +57,8 @@ export default function CountryCapitalGame() {
 
     if (previousClicked) {
       const isMatch =
-        data[previousClicked as keyof typeof data] === clickedItem ||
-        data[clickedItem as keyof typeof data] === previousClicked;
+        getMatch(previousClicked, clickedItem) ||
+        getMatch(clickedItem, previousClicked);
 
       if (isMatch) {
         setMatchedPairs([previousClicked, clickedItem]);
@@ -56,8 +74,6 @@ export default function CountryCapitalGame() {
     }
     setPreviousClicked(clickedItem);
   };
-
-  console.log({ previousClicked, matchedPairs, unmatchedPairs });
 
   useEffect(() => {
     if (unmatchedPairs.length > 0) {
@@ -85,7 +101,7 @@ export default function CountryCapitalGame() {
 
       {shuffledData.length === 0 && <p>You win!</p>}
       {shuffledData.map((el) => (
-        <button
+        <Button
           style={{
             backgroundColor: matchedPairs.includes(el)
               ? "green"
@@ -105,12 +121,13 @@ export default function CountryCapitalGame() {
             padding: "5px",
             margin: "5px",
             cursor: "pointer",
+            textTransform: "initial",
           }}
           key={el}
           onClick={() => handleButtonClick(el)}
         >
           {el}
-        </button>
+        </Button>
       ))}
     </div>
   );
